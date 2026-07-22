@@ -1,0 +1,10 @@
+{
+  "name": "lingvo-media",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lingvo Media - specialized English training. Static HTML/CSS/JS site.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}
