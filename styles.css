@@ -44,6 +44,28 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -101,6 +123,7 @@ img {
   cursor: pointer;
   transition: all 0.15s ease;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -141,8 +164,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 1.5rem;
+  gap: 1.25rem;
+  padding: 0.9rem 1.25rem;
   max-width: var(--maxw);
   margin: 0 auto;
 }
@@ -179,17 +202,24 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.15rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .nav-links a {
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 500;
   color: var(--ink);
   transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Compact CTA button in the header */
+.nav-actions .btn {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.85rem;
 }
 
 .nav-links a:hover,
@@ -664,8 +694,8 @@ img {
 
 .course-code {
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--gold-dark);
 }
@@ -1032,8 +1062,167 @@ img {
   color: rgba(144, 171, 206, 0.75);
 }
 
+/* ---------- Price note (program pages) ---------- */
+.price-note {
+  max-width: 44rem;
+  margin: -1.5rem auto 2.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.price-note a {
+  color: var(--gold-dark);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- Pricing page ---------- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.price-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.price-card.is-featured {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--cream);
+  position: relative;
+}
+
+.price-card.is-featured h3 {
+  color: var(--white);
+}
+
+.price-badge {
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+.price-card h3 {
+  font-size: 1.7rem;
+  margin-bottom: 0.35rem;
+}
+
+.price-card .price-sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+}
+
+.price-card.is-featured .price-sub {
+  color: var(--powder);
+}
+
+.price-amount {
+  font-family: var(--font-head);
+  font-size: 2.9rem;
+  font-weight: 400;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.price-card.is-featured .price-amount {
+  color: var(--gold);
+}
+
+.price-amount .cur {
+  font-size: 1rem;
+  vertical-align: super;
+  color: var(--muted);
+  margin-right: 0.15rem;
+}
+
+.price-card.is-featured .price-amount .cur {
+  color: var(--powder);
+}
+
+.price-unit {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0.4rem 0 1.5rem;
+}
+
+.price-card.is-featured .price-unit {
+  color: var(--powder);
+}
+
+/* group tiered rates */
+.tier-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  text-align: left;
+}
+
+.tier-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.tier-list li:last-child {
+  border-bottom: 0;
+}
+
+.tier-label {
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.tier-price {
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.price-card .btn {
+  margin-top: auto;
+}
+
+.pricing-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 40rem;
+  margin: 2.5rem auto 0;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .grid-3 {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1048,7 +1237,7 @@ img {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1080px) {
   .nav-toggle {
     display: block;
   }
@@ -1073,6 +1262,12 @@ img {
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--line);
   }
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 720px) {
   .grid-3,
   .grid-2 {
     grid-template-columns: 1fr;

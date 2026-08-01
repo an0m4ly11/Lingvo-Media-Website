@@ -16,6 +16,7 @@
     initNavToggle()
     initTestimonials()
     initLogin()
+    initScrollReveal()
   })
 
   function setFooterYear() {
@@ -78,5 +79,53 @@
         window.location.href = MOODLE_URL
       })
     })
+  }
+
+  function initScrollReveal() {
+    // Auto-target common content blocks across every page.
+    const selector = [
+      ".section-head",
+      ".card",
+      ".why-card",
+      ".tcard",
+      ".course",
+      ".price-card",
+      ".feature-band .container",
+      ".program-hero .container > *",
+    ].join(",")
+
+    const items = Array.from(document.querySelectorAll(selector))
+    if (items.length === 0) return
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    // Tag each item and give staggered delays to siblings in the same row.
+    items.forEach((el) => {
+      el.classList.add("reveal")
+      const siblings = Array.from(el.parentElement ? el.parentElement.children : [])
+      const idx = siblings.indexOf(el)
+      const delay = Math.min(idx, 4) * 80
+      el.style.setProperty("--reveal-delay", delay + "ms")
+    })
+
+    // If motion is reduced or IntersectionObserver is unavailable, show immediately.
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      items.forEach((el) => el.classList.add("is-visible"))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            obs.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    )
+
+    items.forEach((el) => observer.observe(el))
   }
 })()
